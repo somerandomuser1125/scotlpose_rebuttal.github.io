@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rebuttal for test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- MathJax for LaTeX rendering -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #222;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 16px 40px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-radius: 8px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      margin-top: 40px;
+      font-size: 1.4rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 4px;
+    }
+    h3 {
+      margin-top: 24px;
+      font-size: 1.1rem;
+    }
+    p {
+      margin: 8px 0;
+    }
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .section-divider {
+      margin: 32px 0;
+      border: none;
+      border-top: 1px solid #e0e0e0;
+    }
+    img, video {
+      border-radius: 4px;
+    }
+    .media-block {
+      margin: 12px 0 24px 0;
+      text-align: center;
+    }
+    .media-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .media-item {
+      flex: 0 1 45%;
+      text-align: center;
+    }
+    .media-item img,
+    .media-item video {
+      max-width: 100%;
+    }
+    /* 왼쪽 2D 이미지만 살짝 더 작게 */
+    .image-item img {
+      max-width: 70%;
+    }
+    @media (max-width: 700px) {
+      .media-item {
+        flex: 0 1 100%;
+      }
+    }
+    .metrics-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 16px 0;
+      font-size: 0.9rem;
+    }
+    .metrics-table th,
+    .metrics-table td {
+      border: 1px solid #ddd;
+      padding: 4px 8px;
+      text-align: center;
+    }
+    .metrics-table th {
+      background-color: #f0f0f0;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><strong>Rebuttal for test</strong></h1>
+    <p class="subtitle">Submitted to test</p>
+
+    <!-- Section 1: 3DHP visualizations -->
+    <h2>1. Additional visualizations on MPI-INF-3DHP</h2>
+    <p>
+      This section presents additional visualizations on the MPI-INF-3DHP dataset.
+      In these examples, the baseline model sometimes achieves slightly better P-MPJPE than SCoTL-Pose,
+      but SCoTL-Pose obtains better scores on our structure-aware metrics (LSE, BLSE, LLE).
+      Qualitatively, SCoTL-Pose produces poses that are closer to the ground truth and
+      more structurally plausible.
+    </p>
+    <p>
+      We briefly summarize the three structure-aware metrics used in the tables below:
+    </p>
+
+    <p>
+      <strong>LSE (Limb Symmetry Error).</strong>
+      LSE measures left–right asymmetry of corresponding limb pairs (e.g., lower arms, thighs).  
+      For a symmetric limb pair \((\mathbf{l}_{i1}, \mathbf{l}_{i2})\) and \((\mathbf{r}_{i1}, \mathbf{r}_{i2})\):
+    </p>
+    <p>
+      \[
+      \mathrm{LSE}_i
+      = 100 \cdot \left|
+      \frac{\lVert \mathbf{l}_{i1} - \mathbf{l}_{i2} \rVert
+            - \lVert \mathbf{r}_{i1} - \mathbf{r}_{i2} \rVert}
+           {\left( \lVert \mathbf{l}_{i1} - \mathbf{l}_{i2} \rVert
+                  + \lVert \mathbf{r}_{i1} - \mathbf{r}_{i2} \rVert \right) / 2}
+      \right|.
+      \]
+    </p>
+
+    <p>
+      <strong>BLSE (Body Segment Length Error).</strong>
+      BLSE measures the relative length error of each body segment between prediction and ground truth.
+      For a segment with predicted keypoints \(\mathbf{k}_{i1}, \mathbf{k}_{i2}\) and ground truth
+      \(\mathbf{t}_{i1}, \mathbf{t}_{i2}\):
+    </p>
+    <p>
+      \[
+      \mathrm{BLSE}_i
+      = 100 \cdot \left|
+      1 - \frac{\lVert \mathbf{k}_{i2} - \mathbf{k}_{i1} \rVert}
+               {\lVert \mathbf{t}_{i2} - \mathbf{t}_{i1} \rVert}
+      \right|.
+      \]
+    </p>
+
+    <p>
+      <strong>LLE (Limb Length Error).</strong>
+      LLE is BLSE restricted to limb segments, where structural artifacts are most visually apparent.
+      For all three metrics, lower values indicate more structurally consistent poses.
+    </p>
+
+    <h3>3093 sample — 2D input + 3D rotation</h3>
+    <p>
+      This example shows the 2D input and the corresponding 3D prediction rendered under rotation.
+    </p>
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Baseline</th>
+          <th>SCoTL-Pose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P-MPJPE (mm)</td>
+          <td>43.5</td>
+          <td>45.0</td>
+        </tr>
+        <tr>
+          <td>LSE (%)</td>
+          <td>8.3</td>
+          <td>3.9</td>
+        </tr>
+        <tr>
+          <td>BLSE (%)</td>
+          <td>6.9</td>
+          <td>5.1</td>
+        </tr>
+        <tr>
+          <td>LLE (%)</td>
+          <td>11.9</td>
+          <td>4.6</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="media-block">
+      <div class="media-row">
+        <div class="media-item image-item">
+          <img src="static/images/3093_2d.png" alt="3DHP Sample 3093 - 2D input">
+        </div>
+        <div class="media-item">
+          <video src="static/videos/3093_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3>10802 sample — 2D input + 3D rotation</h3>
+    <p>
+      This example shows the 2D input and the 3D prediction for sample 10802.
+    </p>
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Baseline</th>
+          <th>SCoTL-Pose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P-MPJPE (mm)</td>
+          <td>44.3</td>
+          <td>44.3</td>
+        </tr>
+        <tr>
+          <td>LSE (%)</td>
+          <td>13.6</td>
+          <td>9.8</td>
+        </tr>
+        <tr>
+          <td>BLSE (%)</td>
+          <td>7.2</td>
+          <td>4.5</td>
+        </tr>
+        <tr>
+          <td>LLE (%)</td>
+          <td>12.6</td>
+          <td>4.7</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="media-block">
+      <div class="media-row">
+        <div class="media-item image-item">
+          <img src="static/images/10802_2d.png" alt="3DHP Sample 10802 - 2D input">
+        </div>
+        <div class="media-item">
+          <video src="static/videos/10802_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3>21300 sample — 2D input + 3D rotation</h3>
+    <p>
+      This example shows the 2D input and the 3D prediction for sample 21300.
+    </p>
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Baseline</th>
+          <th>SCoTL-Pose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P-MPJPE (mm)</td>
+          <td>24.7</td>
+          <td>28.1</td>
+        </tr>
+        <tr>
+          <td>LSE (%)</td>
+          <td>9.2</td>
+          <td>8.4</td>
+        </tr>
+        <tr>
+          <td>BLSE (%)</td>
+          <td>8.6</td>
+          <td>2.8</td>
+        </tr>
+        <tr>
+          <td>LLE (%)</td>
+          <td>4.8</td>
+          <td>4.1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="media-block">
+      <div class="media-row">
+        <div class="media-item image-item">
+          <img src="static/images/21300_2d.png" alt="3DHP Sample 21300 - 2D input">
+        </div>
+        <div class="media-item">
+          <video src="static/videos/21300_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: In-the-wild examples -->
+    <h2>2. In-the-wild dataset: baseline vs SCoTL-Pose</h2>
+    <p>
+      This section shows qualitative comparisons between the baseline and SCoTL-Pose
+      on an in-the-wild dataset. Even under challenging conditions with varying lighting,
+      backgrounds, and viewpoints, SCoTL-Pose often produces more natural and structurally
+      consistent 3D poses.
+    </p>
+    <div class="media-block">
+      <img src="static/images/inthewild_baseline_vs_scotlpose.png"
+           alt="In-the-wild comparison between baseline and SCoTL-Pose">
+    </div>
+
+    <!-- Section 3: Pose-net and Loss-net diagram -->
+    <h2>3. Pose-net and Loss-net diagram</h2>
+    <p>
+      The figure below illustrates the overall architecture of the pose-net and the graph-based loss-net.
+    </p>
+    <p>
+      Given input 2D keypoints, the pose-net lifts them to 3D keypoints. The resulting 3D keypoints
+      are then concatenated with the input 2D keypoints and a joint embedding to form joint-level
+      node features.
+    </p>
+    <p>
+      These node features are fed into a <strong>graph-based loss-net</strong>, where attention is
+      biased using a skeleton-derived adjacency that encodes the kinematic structure.
+      A CLS token aggregates global information and the loss-net outputs a single energy
+      scalar for the pose, which acts as a learned structure-preserving loss.
+    </p>
+    <p>
+      During training, the pose-net and loss-net are updated in an alternating manner,
+      so that the loss-net learns to assign lower energy to structurally plausible poses
+      and higher energy to implausible ones, while the pose-net learns to minimize this
+      energy together with the supervised error.
+    </p>
+    <div class="media-block">
+      <img src="static/images/pose_lossnet_diagram.png"
+           alt="Pose-net and Loss-net diagram">
+    </div>
+
+    <footer>
+      Source code for this page is adapted from Keunhong Park’s Nerfies website.
+    </footer>
+  </div>
+</body>
+</html>
