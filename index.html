@@ -67,21 +67,26 @@
     .media-row {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
+      justify-content: space-between;
+      align-items: center; /* 세로 가운데 정렬 */
       gap: 16px;
     }
     .media-item {
-      flex: 0 1 45%;
+      flex: 0 1 48%;        /* 좌우 폭 비슷하게 */
       text-align: center;
+      display: flex;        /* 내부 컨텐츠 중앙 정렬 */
+      justify-content: center;
+      align-items: center;
     }
     .media-item img,
     .media-item video {
       max-width: 100%;
+      height: auto;
     }
     /* 왼쪽 2D 이미지만 살짝 더 작게 */
     .image-item img {
       max-width: 70%;
+      height: auto;
     }
     @media (max-width: 700px) {
       .media-item {
@@ -102,6 +107,13 @@
     }
     .metrics-table th {
       background-color: #f0f0f0;
+    }
+    /* diagram 이미지 크기 조절용 */
+    .diagram-image {
+      max-width: 90%;   /* 페이지 폭의 90%까지 */
+      height: auto;
+      display: block;
+      margin: 0 auto;   /* 가운데 정렬 */
     }
     footer {
       text-align: center;
@@ -351,7 +363,8 @@
       energy together with the supervised error.
     </p>
     <div class="media-block">
-      <img src="static/images/diagram.png"
+      <img class="diagram-image"
+           src="static/images/diagram.png"
            alt="Pose-net and Loss-net diagram">
     </div>
 
