@@ -20,6 +20,13 @@
       background-color: #f7f7f7;
       color: #222;
     }
+    .video-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
     .container {
       max-width: 900px;
       margin: 40px auto;
@@ -338,11 +345,22 @@
     <div class="media-block">
       <img src="static/images/inthewild_baseline_vs_scotlpose.png"
            alt="In-the-wild comparison between baseline and SCoTL-Pose">
-      <video src="static/videos/dance_base.mp4"
+    
+      <div class="media-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
+          <video src="static/videos/dance_base.mp4"
                  controls autoplay loop muted playsinline></video>
-      <video src="static/videos/dance_scotl.mp4"
+        </div>
+    
+        <div class="media-item">
+          <div class="video-label">SCoTL-Pose</div>
+          <video src="static/videos/dance_scotl.mp4"
                  controls autoplay loop muted playsinline></video>
+        </div>
+      </div>
     </div>
+
 
     <!-- Section 3: Pose-net and Loss-net diagram -->
     <h2>3. Pose-net and Loss-net diagram</h2>
