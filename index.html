@@ -20,11 +20,15 @@
       background-color: #f7f7f7;
       color: #222;
     }
+
     .video-label {
       font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 4px;
       text-align: center;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: #f5f5f5;
     }
 
     .container {
@@ -82,6 +86,7 @@
       flex: 0 1 48%;        /* 좌우 폭 비슷하게 */
       text-align: center;
       display: flex;        /* 내부 컨텐츠 중앙 정렬 */
+      flex-direction: column;  /* 라벨 위, 비디오/이미지 아래 */
       justify-content: center;
       align-items: center;
     }
@@ -345,14 +350,14 @@
     <div class="media-block">
       <img src="static/images/inthewild_baseline_vs_scotlpose.png"
            alt="In-the-wild comparison between baseline and SCoTL-Pose">
-    
+
       <div class="media-row">
         <div class="media-item">
           <div class="video-label">Baseline</div>
           <video src="static/videos/dance_base.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-    
+
         <div class="media-item">
           <div class="video-label">SCoTL-Pose</div>
           <video src="static/videos/dance_scotl.mp4"
@@ -360,7 +365,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Section 3: Pose-net and Loss-net diagram -->
     <h2>3. Pose-net and Loss-net diagram</h2>
