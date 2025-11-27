@@ -148,7 +148,7 @@
     <p>
       This section presents additional visualizations on the MPI-INF-3DHP dataset.
       In these examples, the baseline model sometimes achieves slightly better P-MPJPE than SCoTL-Pose,
-      but SCoTL-Pose obtains better scores on our structure-aware metrics (LSE, BLSE, LLE).
+      but SCoTL-Pose obtains better scores on our structure-aware metrics (LSE, BSLE, LLE).
       Qualitatively, SCoTL-Pose produces poses that are closer to the ground truth and
       more structurally plausible.
     </p>
@@ -174,14 +174,14 @@
     </p>
 
     <p>
-      <strong>BLSE (Body Segment Length Error).</strong>
-      BLSE measures the relative length error of each body segment between prediction and ground truth.
+      <strong>BSLE (Body Segment Length Error).</strong>
+      BSLE measures the relative length error of each body segment between prediction and ground truth.
       For a segment with predicted keypoints \(\mathbf{k}_{i1}, \mathbf{k}_{i2}\) and ground truth
       \(\mathbf{t}_{i1}, \mathbf{t}_{i2}\):
     </p>
     <p>
       \[
-      \mathrm{BLSE}_i
+      \mathrm{BSLE}_i
       = 100 \cdot \left|
       1 - \frac{\lVert \mathbf{k}_{i2} - \mathbf{k}_{i1} \rVert}
                {\lVert \mathbf{t}_{i2} - \mathbf{t}_{i1} \rVert}
@@ -191,7 +191,7 @@
 
     <p>
       <strong>LLE (Limb Length Error).</strong>
-      LLE is BLSE restricted to limb segments, where structural artifacts are most visually apparent.
+      LLE is BSLE restricted to limb segments, where structural artifacts are most visually apparent.
       For all three metrics, lower values indicate more structurally consistent poses.
     </p>
 
@@ -219,7 +219,7 @@
           <td>3.9</td>
         </tr>
         <tr>
-          <td>BLSE (%)</td>
+          <td>BSLE (%)</td>
           <td>6.9</td>
           <td>5.1</td>
         </tr>
@@ -268,7 +268,7 @@
           <td>9.8</td>
         </tr>
         <tr>
-          <td>BLSE (%)</td>
+          <td>BSLE (%)</td>
           <td>7.2</td>
           <td>4.5</td>
         </tr>
@@ -317,7 +317,7 @@
           <td>8.4</td>
         </tr>
         <tr>
-          <td>BLSE (%)</td>
+          <td>BSLE (%)</td>
           <td>8.6</td>
           <td>2.8</td>
         </tr>
