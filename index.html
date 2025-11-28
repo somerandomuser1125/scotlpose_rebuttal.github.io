@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -92,12 +92,12 @@
       max-width: 100%;
       height: auto;
     }
-    /* 왼쪽 2D 이미지만 살짝 더 작게 */
+    /* 2D 이미지만 살짝 더 작게 */
     .image-item img {
       max-width: 70%;
       height: auto;
     }
-    /* 3093 샘플 2D 이미지만 더 크게 */
+    /* 3093 샘플 2D 이미지만 더 크게 (필요시 조절) */
     .image-item.zoom-3093 img {
       max-width: 70%;
     }
@@ -130,6 +130,24 @@
     .metrics-table th {
       background-color: #f0f0f0;
     }
+    .metrics-table caption {
+      font-weight: 600;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+
+    /* 두 개의 결과 테이블을 나란히 배치 */
+    .results-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 12px 0 16px 0;
+    }
+    .results-table-wrapper {
+      flex: 1 1 0;
+      min-width: 260px;
+    }
+
     /* diagram 이미지 크기 조절용 */
     .diagram-image {
       max-width: 90%;   /* 페이지 폭의 90%까지 */
@@ -158,59 +176,218 @@
     <h1>Rebuttal for Enhancing 3D Human Pose Estimation With A Learned Structure-Preserving Loss</h1>
     <p class="subtitle">Submitted to ICLR2026</p>
 
-    <!-- Section 1: 3DHP visualizations -->
-    <h2>1. Additional visualizations on MPI-INF-3DHP</h2>
+    <!-- Section 1: Baselines -> SOTA -->
+    <h2>1. From Standard Baselines to State-of-the-Art: Consistent Improvements with SCoTL-Pose</h2>
     <p>
-      This section presents additional visualizations on the MPI-INF-3DHP dataset.
-      In these examples, the baseline model sometimes achieves slightly better P-MPJPE than SCoTL-pose,
-      but SCoTL-pose obtains better scores on our structure-aware metrics (LSE, BSLE, LLE).
-      Qualitatively, SCoTL-pose produces poses that are closer to the ground truth and
-      more structurally plausible.
-    </p>
-    <p>
-      We briefly summarize the three structure-aware metrics used in the tables below:
+      After revisiting the hyper-parameter search that we were unable to complete in the original submission due to time constraints,
+      and additionally incorporating results from stronger backbones such as a diffusion-based model and the state-of-the-art KTPFormer,
+      we are now able to demonstrate the validity, performance, and robustness of our approach much more convincingly.
     </p>
 
-    <p>
-      <strong>LSE (Limb Symmetry Error).</strong>
-      LSE measures left–right asymmetry of corresponding limb pairs (e.g., lower arms, thighs).  
-      For a symmetric limb pair \((\mathbf{l}_{i1}, \mathbf{l}_{i2})\) and \((\mathbf{r}_{i1}, \mathbf{r}_{i2})\):
-    </p>
-    <p>
-      \[
-      \mathrm{LSE}_i
-      = 100 \cdot \left|
-      \frac{\lVert \mathbf{l}_{i1} - \mathbf{l}_{i2} \rVert
-            - \lVert \mathbf{r}_{i1} - \mathbf{r}_{i2} \rVert}
-           {\left( \lVert \mathbf{l}_{i1} - \mathbf{l}_{i2} \rVert
-                  + \lVert \mathbf{r}_{i1} - \mathbf{r}_{i2} \rVert \right) / 2}
-      \right|.
-      \]
-    </p>
+    <div class="results-row">
+      <!-- Human3.6M table -->
+      <div class="results-table-wrapper">
+        <table class="metrics-table">
+          <caption>Human3.6M</caption>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>MPJPE↓</th>
+              <th>P-MPJPE↓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PoseFormerV2 (T=27, new search)</td>
+              <td>42.7</td>
+              <td>31.6</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>41.5</td>
+              <td>31.2</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>40.5</strong></td>
+              <td><strong>30.3</strong></td>
+            </tr>
+            <tr>
+              <td>D3DP (T=243, H=20, K=10, J_Best)</td>
+              <td>20.4</td>
+              <td>15.4</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>18.1</td>
+              <td>13.9</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>17.7</strong></td>
+              <td><strong>13.7</strong></td>
+            </tr>
+            <tr>
+              <td>KTPFormer (T=243, H=20, K=10, J_Best)</td>
+              <td>18.9</td>
+              <td>14.3</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>18.9</td>
+              <td>14.5</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>18.3</strong></td>
+              <td><strong>13.9</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MPI-INF-3DHP table -->
+      <div class="results-table-wrapper">
+        <table class="metrics-table">
+          <caption>MPI-INF-3DHP</caption>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>MPJPE↓</th>
+              <th>PCK↑</th>
+              <th>AUC↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P-STMO (T=81, new search)</td>
+              <td>33.4</td>
+              <td>98.0</td>
+              <td>77.5</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>32.9</td>
+              <td>98.1</td>
+              <td>77.7</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>32.5</strong></td>
+              <td><strong>98.2</strong></td>
+              <td><strong>78.0</strong></td>
+            </tr>
+            <tr>
+              <td>PoseFormerV2 (T=27, new search)</td>
+              <td>29.6</td>
+              <td>97.0</td>
+              <td>77.8</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>28.5</td>
+              <td>97.4</td>
+              <td>78.4</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>27.8</strong></td>
+              <td><strong>97.5</strong></td>
+              <td><strong>79.0</strong></td>
+            </tr>
+            <tr>
+              <td>D3DP (T=243, H=20, K=20, J_Best)</td>
+              <td>28.8</td>
+              <td>98.2</td>
+              <td>80.4</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (MLP)</td>
+              <td>28.5</td>
+              <td>98.6</td>
+              <td>80.8</td>
+            </tr>
+            <tr>
+              <td>└ + SCoTL-Pose (Graph)</td>
+              <td><strong>27.8</strong></td>
+              <td><strong>98.7</strong></td>
+              <td><strong>80.9</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <p>
-      <strong>BSLE (Body Segment Length Error).</strong>
-      BSLE measures the relative length error of each body segment between prediction and ground truth.
-      For a segment with predicted keypoints \(\mathbf{k}_{i1}, \mathbf{k}_{i2}\) and ground truth
-      \(\mathbf{t}_{i1}, \mathbf{t}_{i2}\):
-    </p>
-    <p>
-      \[
-      \mathrm{BSLE}_i
-      = 100 \cdot \left|
-      1 - \frac{\lVert \mathbf{k}_{i2} - \mathbf{k}_{i1} \rVert}
-               {\lVert \mathbf{t}_{i2} - \mathbf{t}_{i1} \rVert}
-      \right|.
-      \]
+      On Human3.6M, even though the benchmark is already highly saturated, the diffusion-based model benefits from leveraging multiple negative samples
+      and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE.
+      We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.
+      On MPI-INF-3DHP, our approach consistently improves performance across settings as well.
+      Unfortunately, for KTPFormer on 3DHP we were unable to run experiments, because the official baseline code is not publicly released
+      and there are open reproducibility issues reported in the community that have not yet been addressed in the official repository.
     </p>
 
+    <!-- Section 2: In-the-wild examples (그대로 유지) -->
+    <h2>2. In-the-wild dataset: Baseline vs SCoTL-pose</h2>
     <p>
-      <strong>LLE (Limb Length Error).</strong>
-      LLE is BSLE restricted to limb segments, where structural artifacts are most visually apparent.
-      For all three metrics, lower values indicate more structurally consistent poses.
+      This section shows qualitative comparisons between the baseline and SCoTL-pose
+      on an in-the-wild dataset. Even under challenging conditions with varying lighting,
+      backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally
+      consistent 3D poses.
     </p>
+    <div class="media-block">
+      <!-- 위: 두 개의 비디오 나란히 -->
+      <div class="media-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
+          <video src="static/videos/dance_base.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
 
-    <!-- 3093 sample -->
+        <div class="media-item">
+          <div class="video-label">SCoTL-pose</div>
+          <video src="static/videos/dance_scotl.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+      </div>
+
+      <!-- 아래: 이미지 전체 폭으로 나열 -->
+      <div class="media-row" style="margin-top: 16px;">
+        <div class="media-item full-width-item">
+          <img src="static/images/inthewild.png"
+               alt="In-the-wild comparison between baseline and SCoTL-pose">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Energy model & structural improvements -->
+    <h2>3. Does energy model bring better structure?</h2>
+    <p>
+      We summarize here how the learned energy from the loss-net relates to structural plausibility:
+    </p>
+    <ul>
+      <li>
+        <strong>Following the loss-net gradient (GBI) improves poses</strong>:
+        A few gradient steps on the loss-net energy consistently reduce both P-MPJPE and structural errors (LSE, BSLE, LLE),
+        so the energy gives meaningful guidance, not random regularization.
+      </li>
+      <li>
+        <strong>Effect is not just “lower MPJPE”</strong>:
+        Even when baseline and SCoTL-Pose have <em>matched P-MPJPE</em>, SCoTL-Pose still has lower LSE/BSLE/LLE,
+        meaning the loss-net has learned preferences for more structurally plausible poses beyond MPJPE.
+      </li>
+      <li>
+        <strong>Energy is aligned with structural metrics</strong>:
+        Within fixed P-MPJPE bins, the graph-based loss-net energy is positively correlated with LSE/BSLE/LLE;
+        for LSE, Kendall τ≈0.24–0.26 (~62–63% correct ordering), showing strong sensitivity to symmetry and limb-length consistency.
+      </li>
+      <li>
+        <strong>Graph-based &gt; MLP loss-net</strong>:
+        Compared to an MLP, the graph-based loss-net has consistently higher correlation (~+0.1 τ) with all structural metrics,
+        indicating that explicitly encoding the skeleton graph makes the energy much better at ranking structural plausibility.
+      </li>
+    </ul>
+
     <h3>3093 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the corresponding 3D prediction rendered under rotation.
@@ -271,7 +448,6 @@
 
     <hr class="section-divider">
 
-    <!-- 10802 sample -->
     <h3>10802 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 10802.
@@ -332,7 +508,6 @@
 
     <hr class="section-divider">
 
-    <!-- 21300 sample -->
     <h3>21300 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 21300.
@@ -391,41 +566,8 @@
       </div>
     </div>
 
-    <!-- Section 2: In-the-wild examples -->
-    <h2>2. In-the-wild dataset: Baseline vs SCoTL-pose</h2>
-    <p>
-      This section shows qualitative comparisons between the baseline and SCoTL-pose
-      on an in-the-wild dataset. Even under challenging conditions with varying lighting,
-      backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally
-      consistent 3D poses.
-    </p>
-    <div class="media-block">
-      <!-- 위: 두 개의 비디오 나란히 -->
-      <div class="media-row">
-        <div class="media-item">
-          <div class="video-label">Baseline</div>
-          <video src="static/videos/dance_base.mp4"
-                 controls autoplay loop muted playsinline></video>
-        </div>
-
-        <div class="media-item">
-          <div class="video-label">SCoTL-pose</div>
-          <video src="static/videos/dance_scotl.mp4"
-                 controls autoplay loop muted playsinline></video>
-        </div>
-      </div>
-
-      <!-- 아래: 이미지 전체 폭으로 나열 -->
-      <div class="media-row" style="margin-top: 16px;">
-        <div class="media-item full-width-item">
-          <img src="static/images/inthewild.png"
-               alt="In-the-wild comparison between baseline and SCoTL-pose">
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 3: Pose-net and Loss-net diagram -->
-    <h2>3. Pose-net and Loss-net diagram</h2>
+    <!-- Section 4: Pose-net and Loss-net diagram (맨 뒤로 이동) -->
+    <h2>4. Pose-net and Loss-net diagram</h2>
     <p>
       The figure below illustrates the overall architecture of the pose-net and the graph-based loss-net.
     </p>
