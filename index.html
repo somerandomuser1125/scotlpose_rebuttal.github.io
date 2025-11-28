@@ -101,6 +101,12 @@
     .image-item.zoom-3093 img {
       max-width: 70%;
     }
+
+    /* 2D input용 더 작은 이미지 */
+    .image-item.small-2d img {
+      max-width: 40%;
+    }
+
     /* Section 2에서 이미지 전체 너비로 */
     .full-width-item {
       flex: 0 1 100%;
@@ -185,7 +191,6 @@
     <p>
       To address the fact that the original submission could only include a limited hyperparameter search due to time constraints, we have now conducted a much more extensive hyperparameter search. 
       We have also incorporated results from stronger backbones, including a diffusion-based model and the state-of-the-art KTPFormer, which helps us to demonstrate the validity, performance, and robustness of our approach much more convincingly.
-
     </p>
 
     <div class="results-row">
@@ -324,24 +329,24 @@
 
     <p>
       <ul>
-  <li>Human3.6M (H36M)
-    <ul>
-      <li>PoseFormerV2 (+Graph): 41.2 &rarr; 40.5</li>
-    </ul>
-  </li>
-  <li>MPI-INF-3DHP (3DHP)
-    <ul>
-      <li>PoseFormerV2 (+Graph): 29.5 &rarr; 27.8</li>
-      <li>P-STMO
-        <ul>
-          <li>Baseline: 34.6 &rarr; 33.4</li>
-          <li>+MLP: 34.8 &rarr; 32.9</li>
-          <li>+Graph: 33.8 &rarr; 32.5</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+        <li>Human3.6M (H36M)
+          <ul>
+            <li>PoseFormerV2 (+Graph): 41.2 &rarr; 40.5</li>
+          </ul>
+        </li>
+        <li>MPI-INF-3DHP (3DHP)
+          <ul>
+            <li>PoseFormerV2 (+Graph): 29.5 &rarr; 27.8</li>
+            <li>P-STMO
+              <ul>
+                <li>Baseline: 34.6 &rarr; 33.4</li>
+                <li>+MLP: 34.8 &rarr; 32.9</li>
+                <li>+Graph: 33.8 &rarr; 32.5</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
 
       On Human3.6M, even though the benchmark is already highly saturated,
       <strong>the diffusion-based model benefits from leveraging multiple negative samples
@@ -412,6 +417,7 @@
       as a complementary evaluation measure.
     </p>
 
+    <!-- 3093 sample -->
     <h3>3093 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the corresponding 3D prediction rendered under rotation.
@@ -447,7 +453,20 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- 3093: 2D input (작은 이미지) -->
     <div class="media-block">
+      <p><strong>2D input</strong></p>
+      <div class="media-row">
+        <div class="media-item image-item small-2d">
+          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3093: 3D prediction (기존 4개 유지) -->
+    <div class="media-block">
+      <p><strong>3D prediction</strong></p>
       <div class="media-row media-row-four">
         <!-- 1: 이미지 -->
         <div class="media-item image-item zoom-3093">
@@ -472,6 +491,7 @@
 
     <hr class="section-divider">
 
+    <!-- 10802 sample -->
     <h3>10802 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 10802.
@@ -507,7 +527,20 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- 10802: 2D input -->
     <div class="media-block">
+      <p><strong>2D input</strong></p>
+      <div class="media-row">
+        <div class="media-item image-item small-2d">
+          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input">
+        </div>
+      </div>
+    </div>
+
+    <!-- 10802: 3D prediction -->
+    <div class="media-block">
+      <p><strong>3D prediction</strong></p>
       <div class="media-row media-row-four">
         <!-- 1: 이미지 -->
         <div class="media-item image-item">
@@ -532,6 +565,7 @@
 
     <hr class="section-divider">
 
+    <!-- 21300 sample -->
     <h3>21300 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 21300.
@@ -567,7 +601,20 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- 21300: 2D input -->
     <div class="media-block">
+      <p><strong>2D input</strong></p>
+      <div class="media-row">
+        <div class="media-item image-item small-2d">
+          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input">
+        </div>
+      </div>
+    </div>
+
+    <!-- 21300: 3D prediction -->
+    <div class="media-block">
+      <p><strong>3D prediction</strong></p>
       <div class="media-row media-row-four">
         <!-- 1: 이미지 -->
         <div class="media-item image-item">
