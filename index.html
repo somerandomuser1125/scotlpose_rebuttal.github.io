@@ -378,7 +378,7 @@
     <!-- Section 3: Energy model & structural improvements -->
     <h2>3. Does energy model bring better structure?</h2>
     <p>
-      We summarize here how the learned energy from the loss-net relates to structural plausibility:
+      Yes of course! We summarize here how the learned energy from the loss-net relates to structural plausibility:
     </p>
     <ul>
       <li>
@@ -387,9 +387,9 @@
         so the energy gives meaningful guidance, not random regularization.
       </li>
       <li>
-        <strong>Effect is not just “lower MPJPE”</strong>:
+        <strong>Effect is not just “lower P-MPJPE”</strong>:
         Even when baseline and SCoTL-Pose have <em>matched P-MPJPE</em>, SCoTL-Pose still has lower LSE/BSLE/LLE,
-        meaning the loss-net has learned preferences for more structurally plausible poses beyond MPJPE.
+        meaning the loss-net has learned preferences for more structurally plausible poses beyond P-MPJPE.
       </li>
       <li>
         <strong>Energy is aligned with structural metrics</strong>:
@@ -403,12 +403,12 @@
       </li>
     </ul>
     <p>
-      To better understand the behavior of SCoTL-Pose, we examined samples on which SCoTL-Pose performs similarly to,
-      or even worse than, the baseline in terms of P-MPJPE. Somewhat surprisingly, visual inspection of these cases
-      revealed that SCoTL-Pose often produces poses that are structurally more plausible. For the same samples,
-      SCoTL-Pose also achieves higher scores under our proposed structural metrics. This analysis reinforces two key points:
-      (i) the loss-net effectively captures structural signals and guides the pose-net toward geometrically coherent pose configurations,
-      and (ii) P-MPJPE alone is insufficient to assess structural validity, underscoring the meaningful role of our structural metrics
+      To better understand the behavior of SCoTL-Pose, we examined <strong>samples on which SCoTL-Pose performs similarly to,
+      or even worse than, the baseline in terms of P-MPJPE.</strong> Somewhat surprisingly, <strong>visualization of these cases
+      revealed that SCoTL-pose often produces poses that are structurally more plausible.</strong> For the same samples,
+      SCoTL-pose also achieves higher scores under our proposed structural metrics. This analysis reinforces two key points:
+      <strong>(i) the loss-net effectively captures structural signals and guides the pose-net toward more structural consistent pose,</strong>
+      and <strong>(ii) P-MPJPE alone is insufficient to assess structural consistency, underscoring the meaningful role of our structural metrics</strong>
       as a complementary evaluation measure.
     </p>
 
