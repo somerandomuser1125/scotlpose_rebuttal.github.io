@@ -107,6 +107,11 @@
       max-width: 40%;
     }
 
+    /* 2D input을 가운데 정렬하기 위한 row */
+    .media-row-center {
+      justify-content: center;
+    }
+
     /* Section 2에서 이미지 전체 너비로 */
     .full-width-item {
       flex: 0 1 100%;
@@ -125,7 +130,7 @@
       width: 100%;
       border-collapse: collapse;
       margin: 8px 0 16px 0;
-      font-size: 0.8rem;
+      font-size: 0.8rem; /* 표 글씨 조금 작게 */
     }
     .metrics-table th,
     .metrics-table td {
@@ -454,34 +459,44 @@
       </tbody>
     </table>
 
-    <!-- 3093: 2D input (작은 이미지) -->
+    <!-- 3093: 2D input (작은 이미지, 가운데 정렬) -->
     <div class="media-block">
       <p><strong>2D input</strong></p>
-      <div class="media-row">
+      <div class="media-row media-row-center">
         <div class="media-item image-item small-2d">
           <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input">
         </div>
       </div>
     </div>
 
-    <!-- 3093: 3D prediction (기존 4개 유지) -->
+    <!-- 3093: 3D prediction (왼쪽 Baseline / 오른쪽 SCoTL-pose) -->
     <div class="media-block">
       <p><strong>3D prediction</strong></p>
-      <div class="media-row media-row-four">
-        <!-- 1: 이미지 -->
-        <div class="media-item image-item zoom-3093">
-          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input (view 1)">
+      <!-- 라벨 row -->
+      <div class="media-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
         </div>
-        <!-- 2: 영상 -->
+        <div class="media-item">
+          <div class="video-label">SCoTL-pose</div>
+        </div>
+      </div>
+      <!-- 실제 4개 컨텐츠 -->
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 (Baseline 측) -->
+        <div class="media-item image-item zoom-3093">
+          <img src="static/images/3093.png" alt="3DHP Sample 3093 - Baseline (view 1)">
+        </div>
+        <!-- 2: 영상 (Baseline) -->
         <div class="media-item">
           <video src="static/videos/3093_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <!-- 3: 이미지 (SCoTL-pose 측) -->
         <div class="media-item image-item zoom-3093">
-          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input (view 2)">
+          <img src="static/images/3093.png" alt="3DHP Sample 3093 - SCoTL-pose (view 1)">
         </div>
-        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
+        <!-- 4: 영상 (SCoTL-pose) -->
         <div class="media-item">
           <video src="static/videos/3093_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -531,7 +546,7 @@
     <!-- 10802: 2D input -->
     <div class="media-block">
       <p><strong>2D input</strong></p>
-      <div class="media-row">
+      <div class="media-row media-row-center">
         <div class="media-item image-item small-2d">
           <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input">
         </div>
@@ -541,21 +556,31 @@
     <!-- 10802: 3D prediction -->
     <div class="media-block">
       <p><strong>3D prediction</strong></p>
-      <div class="media-row media-row-four">
-        <!-- 1: 이미지 -->
-        <div class="media-item image-item">
-          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input (view 1)">
+      <!-- 라벨 row -->
+      <div class="media-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
         </div>
-        <!-- 2: 영상 -->
+        <div class="media-item">
+          <div class="video-label">SCoTL-pose</div>
+        </div>
+      </div>
+      <!-- 실제 4개 컨텐츠 -->
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 (Baseline 측) -->
+        <div class="media-item image-item">
+          <img src="static/images/10802.png" alt="3DHP Sample 10802 - Baseline (view 1)">
+        </div>
+        <!-- 2: 영상 (Baseline) -->
         <div class="media-item">
           <video src="static/videos/10802_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <!-- 3: 이미지 (SCoTL-pose 측) -->
         <div class="media-item image-item">
-          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input (view 2)">
+          <img src="static/images/10802.png" alt="3DHP Sample 10802 - SCoTL-pose (view 1)">
         </div>
-        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
+        <!-- 4: 영상 (SCoTL-pose) -->
         <div class="media-item">
           <video src="static/videos/10802_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -605,7 +630,7 @@
     <!-- 21300: 2D input -->
     <div class="media-block">
       <p><strong>2D input</strong></p>
-      <div class="media-row">
+      <div class="media-row media-row-center">
         <div class="media-item image-item small-2d">
           <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input">
         </div>
@@ -615,21 +640,31 @@
     <!-- 21300: 3D prediction -->
     <div class="media-block">
       <p><strong>3D prediction</strong></p>
-      <div class="media-row media-row-four">
-        <!-- 1: 이미지 -->
-        <div class="media-item image-item">
-          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input (view 1)">
+      <!-- 라벨 row -->
+      <div class="media-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
         </div>
-        <!-- 2: 영상 -->
+        <div class="media-item">
+          <div class="video-label">SCoTL-pose</div>
+        </div>
+      </div>
+      <!-- 실제 4개 컨텐츠 -->
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 (Baseline 측) -->
+        <div class="media-item image-item">
+          <img src="static/images/21300.png" alt="3DHP Sample 21300 - Baseline (view 1)">
+        </div>
+        <!-- 2: 영상 (Baseline) -->
         <div class="media-item">
           <video src="static/videos/21300_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <!-- 3: 이미지 (SCoTL-pose 측) -->
         <div class="media-item image-item">
-          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input (view 2)">
+          <img src="static/images/21300.png" alt="3DHP Sample 21300 - SCoTL-pose (view 1)">
         </div>
-        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
+        <!-- 4: 영상 (SCoTL-pose) -->
         <div class="media-item">
           <video src="static/videos/21300_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
