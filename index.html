@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -74,13 +74,19 @@
       gap: 16px;
     }
     .media-item {
-      flex: 0 1 48%;        /* 좌우 폭 비슷하게 */
+      flex: 0 1 48%;        /* 기본: 좌우 2개 배치용 */
       text-align: center;
       display: flex;        /* 내부 컨텐츠 중앙 정렬 */
       flex-direction: column;  /* 라벨 위, 비디오/이미지 아래 */
       justify-content: center;
       align-items: center;
     }
+
+    /* 4개(사진/영상/사진/영상) 나란히 배치용 */
+    .media-row-four .media-item {
+      flex: 0 1 23%;
+    }
+
     .media-item img,
     .media-item video {
       max-width: 100%;
@@ -102,6 +108,9 @@
 
     @media (max-width: 700px) {
       .media-item {
+        flex: 0 1 100%;
+      }
+      .media-row-four .media-item {
         flex: 0 1 100%;
       }
     }
@@ -135,6 +144,12 @@
       margin-top: 32px;
       padding-top: 16px;
       border-top: 1px solid #eee;
+    }
+
+    .video-label {
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      color: #444;
     }
   </style>
 </head>
@@ -195,6 +210,7 @@
       For all three metrics, lower values indicate more structurally consistent poses.
     </p>
 
+    <!-- 3093 sample -->
     <h3>3093 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the corresponding 3D prediction rendered under rotation.
@@ -231,10 +247,21 @@
       </tbody>
     </table>
     <div class="media-block">
-      <div class="media-row">
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 -->
         <div class="media-item image-item zoom-3093">
-          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input">
+          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input (view 1)">
         </div>
+        <!-- 2: 영상 -->
+        <div class="media-item">
+          <video src="static/videos/3093_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <div class="media-item image-item zoom-3093">
+          <img src="static/images/3093.png" alt="3DHP Sample 3093 - 2D input (view 2)">
+        </div>
+        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
         <div class="media-item">
           <video src="static/videos/3093_triplet_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -244,6 +271,7 @@
 
     <hr class="section-divider">
 
+    <!-- 10802 sample -->
     <h3>10802 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 10802.
@@ -280,10 +308,21 @@
       </tbody>
     </table>
     <div class="media-block">
-      <div class="media-row">
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 -->
         <div class="media-item image-item">
-          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input">
+          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input (view 1)">
         </div>
+        <!-- 2: 영상 -->
+        <div class="media-item">
+          <video src="static/videos/10802_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <div class="media-item image-item">
+          <img src="static/images/10802.png" alt="3DHP Sample 10802 - 2D input (view 2)">
+        </div>
+        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
         <div class="media-item">
           <video src="static/videos/10802_triplet_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -293,6 +332,7 @@
 
     <hr class="section-divider">
 
+    <!-- 21300 sample -->
     <h3>21300 sample — 2D input + 3D rotation</h3>
     <p>
       This example shows the 2D input and the 3D prediction for sample 21300.
@@ -329,10 +369,21 @@
       </tbody>
     </table>
     <div class="media-block">
-      <div class="media-row">
+      <div class="media-row media-row-four">
+        <!-- 1: 이미지 -->
         <div class="media-item image-item">
-          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input">
+          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input (view 1)">
         </div>
+        <!-- 2: 영상 -->
+        <div class="media-item">
+          <video src="static/videos/21300_triplet_rot_z_axis.mp4"
+                 controls autoplay loop muted playsinline></video>
+        </div>
+        <!-- 3: 이미지 (필요하면 다른 이미지로 교체) -->
+        <div class="media-item image-item">
+          <img src="static/images/21300.png" alt="3DHP Sample 21300 - 2D input (view 2)">
+        </div>
+        <!-- 4: 영상 (필요하면 다른 영상으로 교체) -->
         <div class="media-item">
           <video src="static/videos/21300_triplet_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
