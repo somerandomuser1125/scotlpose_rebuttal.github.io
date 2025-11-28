@@ -672,8 +672,32 @@
       </div>
     </div>
 
-    <!-- Section 4: Pose-net and Loss-net diagram (맨 뒤로 이동) -->
-    <h2>4. Pose-net and Loss-net diagram</h2>
+    <!-- Section 4: Cross-dataset generalization -->
+    <h2>4. Cross-Dataset Generalization of PoseFormerV2 from Human3.6M to MPI-INF-3DHP</h2>
+    <p>
+      <strong>Short description.</strong> We evaluate the generality of our pose-net by training PoseFormerV2 only on Human3.6M and testing it on the MPI-INF-3DHP dataset. 
+      To enable fair cross-dataset evaluation, we first reorder the MPI-INF-3DHP joints to match the Human3.6M joint order using a predefined mapping (MAP_H36M_TO_3DHP) 
+      and normalize the 3DHP coordinates into the same scale and coordinate range as H36M. 
+      The pose-net then takes these aligned 3DHP inputs and produces 3D predictions in the H36M convention, which are subsequently mapped back to the original 3DHP joint order 
+      for comparison against the 3DHP ground truth.
+    </p>
+    <p>
+      Under this protocol, the H36M-trained PoseFormerV2 baseline achieves an MPJPE of <strong>241.5 mm</strong>, while our SCoTL-Pose variant further reduces the error to <strong>236.7 mm</strong>, 
+      demonstrating improved cross-dataset generalization.
+    </p>
+    <div class="media-block">
+      <p><strong>Example visualization</strong></p>
+      <div class="media-row media-row-center">
+        <div class="media-item image-item">
+          <!-- 여기에 cross-dataset 예시 이미지를 넣으면 됩니다 -->
+          <img src="static/images/cross_dataset_example.png"
+               alt="Cross-dataset generalization example: PoseFormerV2 and SCoTL-Pose on MPI-INF-3DHP">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Pose-net and Loss-net diagram -->
+    <h2>5. Pose-net and Loss-net diagram</h2>
     <p>
       The figure below illustrates <strong>the overall architecture of the pose-net and the graph-based loss-net.</strong>
     </p>
