@@ -675,24 +675,22 @@
     <!-- Section 4: Pose-net and Loss-net diagram (맨 뒤로 이동) -->
     <h2>4. Pose-net and Loss-net diagram</h2>
     <p>
-      The figure below illustrates the overall architecture of the pose-net and the graph-based loss-net.
+      The figure below illustrates <strong>the overall architecture of the pose-net and the graph-based loss-net.</strong>
     </p>
     <p>
-      Given input 2D keypoints, the pose-net lifts them to 3D keypoints. The resulting 3D keypoints
-      are then concatenated with the input 2D keypoints and a joint embedding to form joint-level
-      node features.
+      Given input 2D keypoints, the pose-net lifts them to 3D keypoints. 
+      The resulting 3D keypoints are then concatenated with the original 2D keypoints and a learned joint-type embedding to form joint-level node features. 
+      These node features are fed into a loss-net, for which we experiment with two variants: a simple MLP-based loss-net and a graph-based loss-net.
     </p>
     <p>
-      These node features are fed into a graph-based loss-net, where attention is
-      biased using a skeleton-derived adjacency that encodes the kinematic structure.
-      A CLS token aggregates global information and the loss-net outputs a single energy
-      scalar for the pose, which acts as a learned structure-preserving loss.
+      In particular, the graph-based loss-net explicitly reflects the human skeleton: joints are treated as nodes, edges follow the kinematic connectivity, and a CLS token attends to all joints to aggregate global pose information. 
+      The loss-net outputs a single scalar energy for each pose, which serves as a learned structural consistent loss.
     </p>
     <p>
-      During training, the pose-net and loss-net are updated in an alternating manner,
-      so that the loss-net learns to assign lower energy to structurally plausible poses
-      and higher energy to implausible ones, while the pose-net learns to minimize this
-      energy together with the supervised error.
+      During training, the pose-net and loss-net are optimized in an alternating way. 
+      <strong>In i) of the diagram, we update only the pose-net, minimizing a combination of the supervised regression loss and the energy predicted by the loss-net. 
+      In ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones.</strong> 
+      This way, the loss-net provides structural guidance to the pose-net, while the pose-net learns to produce poses with both low supervised error and low structural energy.
     </p>
     <div class="media-block">
       <img class="diagram-image"
