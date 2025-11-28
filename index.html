@@ -179,7 +179,10 @@
     <!-- Section 1: Baselines -> SOTA -->
     <h2>1. From Standard Baselines to State-of-the-Art: Consistent Improvements with SCoTL-Pose</h2>
     <p>
-      To address the fact that the <strong>original submission could only include a limited hyperparameter search due to time constraints</strong>, we have now conducted a <strong>more search</strong> and additionally incorporated <strong>results from stronger backbones such as a diffusion-based model and the state-of-the-art KTPFormer</strong>, allowing us to demonstrate the validity, performance, and robustness of our approach much more convincingly.
+      To address the fact that the <strong>original submission could only include a limited hyperparameter search due to time constraints</strong>,
+      we have now conducted a <strong>much more extensive hyperparameter search</strong> and additionally incorporated
+      <strong>results from stronger backbones such as a diffusion-based model and the state-of-the-art KTPFormer</strong>,
+      allowing us to demonstrate the validity, performance, and robustness of our approach much more convincingly.
     </p>
 
     <div class="results-row">
@@ -317,15 +320,21 @@
     </div>
 
     <p>
-      On Human3.6M, even though the benchmark is already highly saturated, <strong>the diffusion-based model benefits from leveraging multiple negative samples
+      On Human3.6M, even though the benchmark is already highly saturated,
+      <strong>the diffusion-based model benefits from leveraging multiple negative samples
       and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE.</strong>
       We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.
       <strong>On MPI-INF-3DHP, our approach consistently improves performance across settings as well.</strong>
       Unfortunately, for KTPFormer on 3DHP we were unable to run experiments, because the official baseline code is not publicly released
       and there are open reproducibility issues reported in the community that have not yet been addressed in the official repository.
     </p>
+    <p>
+      For P-STMO, due to the deadline, both the baseline and the +SCoTL-Pose had not been trained for the full number of epochs
+      and were reported with preliminary hyperparameters. After the submission, we completed training to convergence and performed
+      a more thorough hyperparameter search for both models, and we now report these updated, fully trained P-STMO results in the revised manuscript.
+    </p>
 
-    <!-- Section 2: In-the-wild examples (그대로 유지) -->
+    <!-- Section 2: In-the-wild examples -->
     <h2>2. In-the-wild dataset: Baseline vs SCoTL-pose</h2>
     <p>
       This section shows qualitative comparisons between the baseline and SCoTL-pose
@@ -333,7 +342,7 @@
       backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally
       consistent 3D poses.</strong>
     </p>
-
+    <div class="media-block">
       <!-- 아래: 이미지 전체 폭으로 나열 -->
       <div class="media-row" style="margin-top: 16px;">
         <div class="media-item full-width-item">
@@ -370,6 +379,15 @@
         indicating that explicitly encoding the skeleton graph makes the energy much better at ranking structural plausibility.
       </li>
     </ul>
+    <p>
+      To better understand the behavior of SCoTL-Pose, we examined samples on which SCoTL-Pose performs similarly to,
+      or even worse than, the baseline in terms of P-MPJPE. Somewhat surprisingly, visual inspection of these cases
+      revealed that SCoTL-Pose often produces poses that are structurally more plausible. For the same samples,
+      SCoTL-Pose also achieves higher scores under our proposed structural metrics. This analysis reinforces two key points:
+      (i) the loss-net effectively captures structural signals and guides the pose-net toward geometrically coherent pose configurations,
+      and (ii) P-MPJPE alone is insufficient to assess structural validity, underscoring the meaningful role of our structural metrics
+      as a complementary evaluation measure.
+    </p>
 
     <h3>3093 sample — 2D input + 3D rotation</h3>
     <p>
