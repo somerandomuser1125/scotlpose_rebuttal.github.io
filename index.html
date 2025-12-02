@@ -682,7 +682,21 @@
       Importantly, <strong>in all cross-dataset settings SCoTL-Pose consistently outperforms the baseline,</strong> indicating that our loss-net does not simply overfit to a single domain but provides a robust structural prior. 
       We believe that explicitly improving cross-dataset generalization is an interesting direction for future work, and we plan to investigate how the learned loss-net can be further exploited to contribute to better handling of distribution shifts.
     </p>
-
+    <div class="media-block">
+      <div class="media-row">
+        <div class="media-item">
+          <img src="static/images/hist1.png"
+               alt="Cross-dataset: Train on H36M, Test on 3DHP">
+          <div class="video-label">Train: H36M → Test: 3DHP</div>
+        </div>
+        <div class="media-item">
+          <img src="static/images/hist2.png"
+               alt="Cross-dataset: Train on 3DHP, Test on H36M">
+          <div class="video-label">Train: 3DHP → Test: H36M</div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Section 5: Pose-net and Loss-net diagram -->
     <h2>5. Pose-net and Loss-net diagram</h2>
     <p>
