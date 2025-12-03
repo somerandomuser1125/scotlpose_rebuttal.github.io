@@ -410,7 +410,7 @@
   <li>
     <strong>Human3.6M (H36M)</strong>
     <ul>
-      <li>PoseFormerV2 (+Graph): 41.2 → 40.5</li>
+      <li>PoseFormerV2 (+Graph): 41.2 → <strong>40.5</strong></li>
     </ul>
   </li>
 
@@ -444,15 +444,15 @@
       For P-STMO, the original submission reported undertrained models with preliminary hyperparameters due to the deadline. After submission, we trained both the baseline and SCoTL-pose to convergence with a more thorough hyperparameter search, and we now report these updated P-STMO results in the revised manuscript.
     </p>
 
-    <p><strong>Analysis on Human3.6M.</strong></p> <p>Even though the benchmark is already highly saturated, <strong>the diffusion-based model benefits from leveraging multiple negative samples and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE.</strong> We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.</p>
+    <p><strong>Analysis on Human3.6M</strong></p> <p>Even though the benchmark is already highly saturated, <strong>the diffusion-based model benefits from leveraging multiple negative samples and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE.</strong> We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.</p>
 
-    <p><strong>Analysis on MPI-INF-3DHP.</strong></p> <p><strong>Our approach consistently improves performance across settings as well.</strong> Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository.</p>
+    <p><strong>Analysis on MPI-INF-3DHP</strong></p> <p><strong>Our approach consistently improves performance across settings as well.</strong> Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository.</p>
     <p>Instead, we provide <strong>a comprehensive set of 32 experimental results</strong> (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), <strong>which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</strong></p>
     <!-- Section 3: In-the-wild examples -->
     <h2>3. In-the-wild dataset: Baseline vs SCoTL-pose</h2>
     <p>
-      This section presents qualitative comparisons between the baseline and SCoTL-pose on an <strong>in-the-wild dataset.</strong>
-      Even under challenging conditions with varying lighting, backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally consistent 3D poses than the baseline.
+      Baseline & SCoTL-pose utilizes the same architecture. <strong>In this analysis, we set our Baseline as PoseformerV2.</strong> This section presents qualitative comparisons between the baseline and SCoTL-pose on an <strong>in-the-wild dataset.</strong>
+      <strong>Even under challenging conditions with varying lighting, backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally consistent 3D poses than the baseline.</strong>
     </p>
 
     <div class="media-block">
@@ -511,7 +511,7 @@
     <!-- Section 4: Energy model & structural improvements -->
     <h2>4. Does the energy model lead to better structure?</h2>
     <p>
-      Our analysis shows that the learned energy score is strongly related to structural plausibility. Below we summarize how the loss-net energy reflects this relationship.
+      Baseline & SCoTL-pose utilizes the same architecture. <strong>In this analysis, we set our Baseline as SimpleBaseline.</strong> Our analysis shows that the learned energy score is strongly related to structural plausibility. Below we summarize how the loss-net energy reflects this relationship.
     </p>
     <p><strong>Analysis of the pose-net trained with and without the energy model.</strong></p>
     <ul>
