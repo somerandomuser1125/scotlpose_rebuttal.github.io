@@ -429,6 +429,7 @@
     </ul>
   </li>
 </ul>
+    <p><strong>State-of-the-Art Model result</strong></p>
 
     <p>
       For P-STMO, the original submission reported undertrained models with preliminary hyperparameters due to the deadline. After submission, we trained both the baseline and SCoTL-Pose to convergence with a more thorough hyperparameter search, and we now report these updated P-STMO results in the revised manuscript.
@@ -436,7 +437,7 @@
 
     <p><strong>Analysis on Human3.6M.</strong> Even though the benchmark is already highly saturated, the diffusion-based model benefits from leveraging multiple negative samples and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE. We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.</p>
 
-    <p><strong>Analysis on MPI-INF-3DHP.</strong> Our approach consistently improves performance across settings as well. Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository. Instead, we provide a comprehensive set of 32 experimental results (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-Pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</p>
+    <p><strong>Analysis on MPI-INF-3DHP.</strong> Our approach consistently improves performance across settings as well. Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository.</p>
     <p>Instead, we provide a comprehensive set of 32 experimental results (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-Pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</p>
     <!-- Section 3: In-the-wild examples -->
     <h2>3. In-the-wild dataset: Baseline vs SCoTL-Pose</h2>
