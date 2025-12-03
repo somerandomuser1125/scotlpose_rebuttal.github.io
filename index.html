@@ -811,6 +811,10 @@
     <p>
       These results highlight two key points. First, the cross-dataset experiments indicate that <strong>limited domain generalization and sensitivity to input formatting are common issues in current 3D HPE models,</strong> rather than a specific flaw of our method. The histogram visualizations further show that both the baseline and SCoTL-Pose suffer from the dataset shift, although the overall trends remain similar.
     </p>
+    
+    <p>
+      Second, regarding the original concern about overfitting of the loss-net, <strong>we do not observe any additional degradation beyond the baseline: SCoTL-Pose largely preserves its in-domain gains under cross-dataset evaluation.</strong> This suggests that the loss-net does not overfit in a way that harms the pose-net’s cross-dataset performance, while the remaining domain gap remains an interesting direction for future work.
+    </p>
     <div class="media-block">
       <div class="media-row">
         <div class="media-item">
@@ -825,10 +829,6 @@
         </div>
       </div>
     </div>
-    <p>
-      Second, regarding the original concern about overfitting of the loss-net, <strong>we do not observe any additional degradation beyond the baseline: SCoTL-Pose largely preserves its in-domain gains under cross-dataset evaluation.</strong> This suggests that the loss-net does not overfit in a way that harms the pose-net’s cross-dataset performance, while the remaining domain gap remains an interesting direction for future work.
-    </p>
-
     <footer>
       Source code for this page is adapted from Keunhong Park’s Nerfies website.
     </footer>
