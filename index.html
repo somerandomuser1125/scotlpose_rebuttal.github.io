@@ -12,6 +12,19 @@
   </script>
 
   <style>
+        /* in-the-wild 3개 영상 가로 배치용 */
+    .itw-video-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 16px 0 24px 0;
+      justify-content: center;
+    }
+
+    .itw-video-row .media-item {
+      flex: 0 1 32%;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.6;
