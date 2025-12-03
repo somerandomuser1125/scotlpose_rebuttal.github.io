@@ -12,34 +12,33 @@
   </script>
 
   <style>
-        /* 기본: in-the-wild 3개 나란히 */
-.itw-video-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 16px 0 24px 0;
-  justify-content: center;
-}
+    /* 기본: in-the-wild 3개 나란히 */
+    .itw-video-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 16px 0 24px 0;
+      justify-content: center;
+    }
 
-.itw-video-row .media-item {
-  flex: 0 1 32%;
-}
+    .itw-video-row .media-item {
+      flex: 0 1 32%;
+    }
 
-/* 기본 비디오 크기: 양옆 (Baseline 1, SCoTL-pose) */
-.itw-video-row video {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+    /* 기본 비디오 크기: 양옆 (Baseline, SCoTL-pose) */
+    .itw-video-row video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-/* ✅ 가운데(Baseline 2)만 살짝 zoom-out */
-.itw-video-row .video-zoomout {
-  width: 80%;        /* 70~85% 사이로 취향에 맞게 조절 가능 */
-  height: auto;
-  display: block;
-  margin: 0 auto;    /* 가운데 정렬 */
-}
-
+    /* 가운데(Baseline 2)만 살짝 zoom-out */
+    .itw-video-row .video-zoomout {
+      width: 80%;        /* 70~85% 사이로 조절 가능 */
+      height: auto;
+      display: block;
+      margin: 0 auto;    /* 가운데 정렬 */
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -162,6 +161,9 @@
       .media-row-four .media-item {
         flex: 0 1 100%;
       }
+      .itw-video-row .media-item {
+        flex: 0 1 100%;
+      }
     }
 
     .metrics-table {
@@ -229,11 +231,43 @@
     <h1>Rebuttal for Enhancing 3D Human Pose Estimation With A Learned Structure-Preserving Loss</h1>
     <p class="subtitle">Submitted to ICLR2026</p>
 
-    <!-- Section 1: Baselines -> SOTA -->
-    <h2>1. From General Baselines to State-of-the-Art: Consistent Improvements</h2>
+    <!-- Intro -->
     <p>
-      To address the fact that the original submission could only include a limited hyperparameter search due to time constraints, <strong>we have now conducted a much more extensive hyperparameter search.</strong> 
-      We have also incorporated <strong>results from stronger backbones, including a diffusion-based model and the state-of-the-art KTPFormer</strong>, which helps us to demonstrate the validity, performance, and robustness of our approach much more convincingly.
+      We sincerely thank the reviewers for their thoughtful and constructive feedback. Your questions motivated us to conduct additional analyses and experiments, which allowed us to further validate and clarify the strengths of SCoTL-Pose.
+    </p>
+    <p>Specifically, this rebuttal:</p>
+    <ol>
+      <li>summarizes the overall architecture of SCoTL-Pose;</li>
+      <li>shows that our method consistently improves not only general backbones but also strong state-of-the-art models;</li>
+      <li>provides visualizations on unseen in-the-wild data, illustrating that our method produces structurally plausible poses beyond the training distribution;</li>
+      <li>demonstrates that the loss-net provides useful guidance during training; and</li>
+      <li>presents cross-dataset experiments designed to test potential overfitting of the loss-net.</li>
+    </ol>
+
+    <!-- Section 1: Conceptual diagram -->
+    <h2>1. Conceptual diagram of SCoTL-Pose</h2>
+    <p>
+      The figure below illustrates our overall architecture: a pose-net that lifts 2D keypoints to 3D, and a loss-net that takes joint-level features formed by concatenating the 3D keypoints, the original 2D keypoints, and a joint-type embedding. We consider two loss-net variants: a simple MLP and a graph-based model.
+    </p>
+    <p>
+      The graph-based loss-net explicitly reflects the human skeleton: joints are treated as nodes, edges follow the kinematic connectivity, and a CLS token attends to all joints to aggregate global pose information. The loss-net outputs a single scalar energy for each pose, which serves as a learned structure-consistent loss (we also include an MLP-based loss-net, omitted here for brevity).
+    </p>
+    <p>
+      During training, the pose-net and loss-net are optimized in an alternating way. In (i) of the diagram, we update only the pose-net, minimizing a combination of the supervised loss and the energy predicted by the loss-net. In (ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones. This way, the loss-net provides structural guidance to the pose-net, while the pose-net learns to produce poses with both low supervised error and low structural energy.
+    </p>
+    <div class="media-block">
+      <img class="diagram-image"
+           src="static/images/diagram.png"
+           alt="Pose-net and Loss-net diagram">
+    </div>
+
+    <!-- Section 2: Baselines -> SOTA -->
+    <h2>2. From general baselines to state-of-the-art: consistent improvements</h2>
+    <p>
+      During the rebuttal process, we have performed substantially more extensive experiments.
+      (i) We conducted a much broader hyperparameter search, which led to additional improvements over the original submission.
+      (ii) In response to the reviewers’ suggestions, we further evaluated SCoTL-Pose on stronger state-of-the-art backbones, including KTPFormer and a diffusion-based model.
+      Across all these settings, we observe a consistent improvement: SCoTL-Pose improves over the corresponding baselines and achieves state-of-the-art performance on our benchmark datasets.
     </p>
 
     <div class="results-row">
@@ -370,141 +404,111 @@
       </div>
     </div>
 
+    <p><strong>Hyperparameter search results.</strong></p>
+    <ul>
+      <li><strong>Human3.6M (H36M).</strong> PoseFormerV2 (+Graph): 41.2 → 40.5.</li>
+      <li><strong>MPI-INF-3DHP (3DHP).</strong> PoseFormerV2 (+Graph): 29.5 → 27.8.</li>
+      <li><strong>P-STMO.</strong> Baseline: 34.6 → 33.4; +MLP: 34.8 → 32.9; +Graph: 33.8 → 32.5.</li>
+    </ul>
     <p>
-      <ul>
-        <li>Human3.6M (H36M)
-          <ul>
-            <li>PoseFormerV2 (+Graph): 41.2 &rarr; 40.5</li>
-          </ul>
-        </li>
-        <li>MPI-INF-3DHP (3DHP)
-          <ul>
-            <li>PoseFormerV2 (+Graph): 29.5 &rarr; 27.8</li>
-            <li>P-STMO
-              <ul>
-                <li>Baseline: 34.6 &rarr; 33.4</li>
-                <li>+MLP: 34.8 &rarr; 32.9</li>
-                <li>+Graph: 33.8 &rarr; 32.5</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-
-      On Human3.6M, even though the benchmark is already highly saturated,
-      <strong>the diffusion-based model benefits from leveraging multiple negative samples
-      and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE.</strong>
-      We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.
-      <strong>On MPI-INF-3DHP, our approach consistently improves performance across settings as well.</strong>
-      Unfortunately, for KTPFormer on 3DHP we were unable to run experiments, because the official baseline code is not publicly released
-      and there are open reproducibility issues reported in the community that have not yet been addressed in the official repository.
-    </p>
-    <p>
-      For P-STMO, due to the deadline, both the baseline and the +SCoTL-Pose had not been trained for the full number of epochs
-      and were reported with preliminary hyperparameters. After the submission, we completed training to convergence and performed
-      a more thorough hyperparameter search for both models, and we now report these updated, fully trained P-STMO results in the revised manuscript.
+      For P-STMO, the original submission reported undertrained models with preliminary hyperparameters due to the deadline. After submission, we trained both the baseline and SCoTL-Pose to convergence with a more thorough hyperparameter search, and we now report these updated P-STMO results in the revised manuscript.
     </p>
 
-    <!-- Section 2: In-the-wild examples -->
-<h2>2. In-the-wild dataset: Baseline vs SCoTL-pose</h2>
-<p>
-  This section shows qualitative comparisons between the baseline and SCoTL-pose
-  on an <strong>in-the-wild dataset.</strong> <strong>Even under challenging conditions with varying lighting,
-  backgrounds, and viewpoints, SCoTL-pose often produces more natural and structurally
-  consistent 3D poses.</strong>
-</p>
+    <p><strong>Analysis on Human3.6M.</strong> Even though the benchmark is already highly saturated, the diffusion-based model benefits from leveraging multiple negative samples and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE. We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.</p>
 
-<div class="media-block">
-  <div class="itw-video-row">
-    <div class="media-item">
-      <div class="video-label">Baseline</div>
-      <video
-        src="static/videos/dance_base1.mp4"
-        controls
-        autoplay
-        loop
-        muted
-        playsinline
-        poster="static/images/itw_example_thumbnail.png">
-      </video>
-    </div>
+    <p><strong>Analysis on MPI-INF-3DHP.</strong> Our approach consistently improves performance across settings as well. Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository. Instead, we provide a comprehensive set of 32 experimental results (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-Pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</p>
 
-    <div class="media-item media-item-center">
-  <div class="video-label"></div>
-  <video
-    class="video-zoomout"
-    src="static/videos/2.mp4"
-    controls
-    autoplay
-    loop
-    muted
-    playsinline
-    poster="static/images/itw_example_thumbnail.png">
-  </video>
-</div>
+    <!-- Section 3: In-the-wild examples -->
+    <h2>3. In-the-wild dataset: Baseline vs SCoTL-Pose</h2>
+    <p>
+      This section presents qualitative comparisons between the baseline and SCoTL-Pose on an <strong>in-the-wild dataset.</strong>
+      Even under challenging conditions with varying lighting, backgrounds, and viewpoints, SCoTL-Pose often produces more natural and structurally consistent 3D poses than the baseline.
+    </p>
 
-
-    <div class="media-item">
-      <div class="video-label">SCoTL-pose</div>
-      <video
-        src="static/videos/dance_scotl3.mp4"
-        controls
-        autoplay
-        loop
-        muted
-        playsinline
-        poster="static/images/itw_example_thumbnail.png">
-      </video>
-    </div>
-  </div>
-</div>
-
-          
     <div class="media-block">
-      <!-- 아래: 이미지 전체 폭으로 나열 -->
-      <div class="media-row" style="margin-top: 16px;">
-        <div class="media-item full-width-item">
-          <img src="static/images/inthewild.png"
-               alt="In-the-wild comparison between baseline and SCoTL-pose">
+      <div class="itw-video-row">
+        <div class="media-item">
+          <div class="video-label">Baseline</div>
+          <video
+            src="static/videos/dance_base1.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+
+        <div class="media-item media-item-center">
+          <div class="video-label"></div>
+          <video
+            class="video-zoomout"
+            src="static/videos/2.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+
+        <div class="media-item">
+          <div class="video-label">SCoTL-Pose</div>
+          <video
+            src="static/videos/dance_scotl3.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
         </div>
       </div>
     </div>
 
-    <!-- Section 3: Energy model & structural improvements -->
-    <h2>3. Does energy model bring better structure?</h2>
+    <div class="media-block">
+      <div class="media-row" style="margin-top: 16px;">
+        <div class="media-item full-width-item">
+          <img src="static/images/inthewild.png"
+               alt="In-the-wild comparison between baseline and SCoTL-Pose">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Energy model & structural improvements -->
+    <h2>4. Does the energy model lead to better structure?</h2>
     <p>
-      Yes of course! We summarize here how the learned energy from the loss-net relates to structural plausibility:
+      Our analysis shows that the learned energy score is strongly related to structural plausibility. Below we summarize how the loss-net energy reflects this relationship.
     </p>
+    <p><strong>Analysis of the pose-net trained with and without the energy model.</strong></p>
     <ul>
       <li>
-        <strong>Following the loss-net gradient (GBI) improves poses</strong>:
-        A few gradient steps on the loss-net energy consistently reduce both P-MPJPE and structural errors (LSE, BSLE, LLE),
-        so the energy gives meaningful guidance, not random regularization.
+        <strong>Following the loss-net gradient (GBI) improves both P-MPJPE and structural consistency.</strong>
+        A few gradient steps on the loss-net energy consistently reduce not only P-MPJPE but also our structural errors (LSE, BSLE, LLE), indicating that the energy provides meaningful guidance rather than acting as random regularization.
       </li>
       <li>
-        <strong>Effect is not just “lower P-MPJPE”</strong>:
-        Even when baseline and SCoTL-Pose have <em>matched P-MPJPE</em>, SCoTL-Pose still has lower LSE/BSLE/LLE,
-        meaning the loss-net has learned preferences for more structurally plausible poses beyond P-MPJPE.
-      </li>
-      <li>
-        <strong>Energy is aligned with structural metrics</strong>:
-        Within fixed P-MPJPE bins, the graph-based loss-net energy is positively correlated with LSE/BSLE/LLE;
-        for LSE, Kendall τ≈0.24–0.26 (~62–63% correct ordering), showing strong sensitivity to symmetry and limb-length consistency.
-      </li>
-      <li>
-        <strong>Graph-based &gt; MLP loss-net</strong>:
-        Compared to an MLP, the graph-based loss-net has consistently higher correlation (~+0.1 τ) with all structural metrics,
-        indicating that explicitly encoding the skeleton graph makes the energy much better at ranking structural plausibility.
+        <strong>Is the energy model “just lowering P-MPJPE”?</strong>
+        Even when the baseline and SCoTL-Pose have matched P-MPJPE, SCoTL-Pose still achieves lower LSE/BSLE/LLE. This suggests that the loss-net has encouraged the pose-net to learn preferences for more structurally plausible poses beyond what is captured by P-MPJPE alone. [Figure XYZ]
       </li>
     </ul>
+
+    <p><strong>Analysis of the energy itself.</strong></p>
+    <ul>
+      <li>
+        <strong>Energy is aligned with structural metrics.</strong>
+        Within fixed P-MPJPE bins, the graph-based loss-net energy is positively correlated with our structural metrics (LSE/BSLE/LLE); for LSE, we obtain Kendall τ≈0.24–0.26 (~62–63% correct ordering), showing that the energy is sensitive to symmetry and limb-length consistency.
+      </li>
+      <li>
+        <strong>Graph-based vs. MLP-based loss-net.</strong>
+        Compared to an MLP-based loss-net, the graph-based loss-net exhibits consistently higher correlation (~+0.1 τ) with all structural metrics, indicating that explicitly encoding the skeleton graph makes the energy much better at ranking structural plausibility.
+      </li>
+    </ul>
+
     <p>
-      To better understand the behavior of SCoTL-Pose, we examined <strong>samples on which SCoTL-Pose performs similarly to,
-      or even worse than, the baseline in terms of P-MPJPE.</strong> Somewhat surprisingly, <strong>visualization of these cases
-      revealed that SCoTL-pose often produces poses that are structurally more plausible.</strong> For the same samples,
-      SCoTL-pose also achieves higher scores under our proposed structural metrics. This analysis reinforces two key points:
-      <strong>(i) the loss-net effectively captures structural signals and guides the pose-net toward more structural consistent pose,</strong>
-      and <strong>(ii) P-MPJPE alone is insufficient to assess structural consistency, underscoring the meaningful role of our structural metrics</strong>
-      as a complementary evaluation measure.
+      To better understand the behavior of SCoTL-Pose, we further examined samples on which SCoTL-Pose performs similarly to, or even worse than, the baseline in terms of P-MPJPE. Somewhat surprisingly, visualization of these cases revealed that SCoTL-Pose often produces poses that are structurally more plausible. For the same samples, SCoTL-Pose also achieves higher scores under our structural metrics. This analysis reinforces two key points: (i) the loss-net effectively captures structural signals and guides the pose-net toward more structurally consistent poses, and (ii) P-MPJPE alone is insufficient to assess structural consistency, underscoring the importance of our structural metrics as a complementary evaluation measure.
     </p>
 
     <!-- 3093 sample -->
@@ -517,17 +521,17 @@
         <tr>
           <th>Metric</th>
           <th>Baseline</th>
-          <th>SCoTL-pose</th>
+          <th>SCoTL-Pose</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><P-MPJPE (mm)</td>
+          <td><strong>P-MPJPE</strong> (mm)</td>
           <td>43.5</td>
           <td>45.0</td>
         </tr>
         <tr>
-          <td>>LSE (%)</td>
+          <td><strong>LSE</strong> (%)</td>
           <td>8.3</td>
           <td>3.9</td>
         </tr>
@@ -554,7 +558,7 @@
       </div>
     </div>
 
-    <!-- 3093: 3D prediction (왼쪽 Baseline / 오른쪽 SCoTL-pose) -->
+    <!-- 3093: 3D prediction (왼쪽 Baseline / 오른쪽 SCoTL-Pose) -->
     <div class="media-block">
       <p><strong>3D prediction</strong></p>
       <!-- 라벨 row -->
@@ -563,7 +567,7 @@
           <div class="video-label">Baseline</div>
         </div>
         <div class="media-item">
-          <div class="video-label">SCoTL-pose</div>
+          <div class="video-label">SCoTL-Pose</div>
         </div>
       </div>
       <!-- 실제 4개 컨텐츠 -->
@@ -577,11 +581,11 @@
           <video src="static/videos/3093_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (SCoTL-pose 측) -->
+        <!-- 3: 이미지 (SCoTL-Pose 측) -->
         <div class="media-item image-item zoom-3093">
-          <img src="static/images/3093_gt_scotl_view01_az330.png" alt="3DHP Sample 3093 - SCoTL-pose (view 1)">
+          <img src="static/images/3093_gt_scotl_view01_az330.png" alt="3DHP Sample 3093 - SCoTL-Pose (view 1)">
         </div>
-        <!-- 4: 영상 (SCoTL-pose) -->
+        <!-- 4: 영상 (SCoTL-Pose) -->
         <div class="media-item">
           <video src="static/videos/3093_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -601,7 +605,7 @@
         <tr>
           <th>Metric</th>
           <th>Baseline</th>
-          <th>SCoTL-pose</th>
+          <th>SCoTL-Pose</th>
         </tr>
       </thead>
       <tbody>
@@ -647,7 +651,7 @@
           <div class="video-label">Baseline</div>
         </div>
         <div class="media-item">
-          <div class="video-label">SCoTL-pose</div>
+          <div class="video-label">SCoTL-Pose</div>
         </div>
       </div>
       <!-- 실제 4개 컨텐츠 -->
@@ -661,11 +665,11 @@
           <video src="static/videos/10802_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (SCoTL-pose 측) -->
+        <!-- 3: 이미지 (SCoTL-Pose 측) -->
         <div class="media-item image-item">
-          <img src="static/images/10802_gt_scotl_view00_az300.png" alt="3DHP Sample 10802 - SCoTL-pose (view 1)">
+          <img src="static/images/10802_gt_scotl_view00_az300.png" alt="3DHP Sample 10802 - SCoTL-Pose (view 1)">
         </div>
-        <!-- 4: 영상 (SCoTL-pose) -->
+        <!-- 4: 영상 (SCoTL-Pose) -->
         <div class="media-item">
           <video src="static/videos/10802_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -685,7 +689,7 @@
         <tr>
           <th>Metric</th>
           <th>Baseline</th>
-          <th>SCoTL-pose</th>
+          <th>SCoTL-Pose</th>
         </tr>
       </thead>
       <tbody>
@@ -731,7 +735,7 @@
           <div class="video-label">Baseline</div>
         </div>
         <div class="media-item">
-          <div class="video-label">SCoTL-pose</div>
+          <div class="video-label">SCoTL-Pose</div>
         </div>
       </div>
       <!-- 실제 4개 컨텐츠 -->
@@ -745,11 +749,11 @@
           <video src="static/videos/21300_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (SCoTL-pose 측) -->
+        <!-- 3: 이미지 (SCoTL-Pose 측) -->
         <div class="media-item image-item">
-          <img src="static/images/21300_gt_scotl_view01_az330.png" alt="3DHP Sample 21300 - SCoTL-pose (view 1)">
+          <img src="static/images/21300_gt_scotl_view01_az330.png" alt="3DHP Sample 21300 - SCoTL-Pose (view 1)">
         </div>
-        <!-- 4: 영상 (SCoTL-pose) -->
+        <!-- 4: 영상 (SCoTL-Pose) -->
         <div class="media-item">
           <video src="static/videos/21300_gt_scotl_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
@@ -757,15 +761,34 @@
       </div>
     </div>
 
-    <!-- Section 4: Cross-dataset generalization -->
-    <h2>4. Cross-dataset evaluation between H36M and 3DHP to examine domain-specific overfitting</h2>
+    <!-- Section 5: Cross-dataset generalization -->
+    <h2>5. Is the loss-net overfitting to the training data? (Cross-dataset evaluation)</h2>
     <p>
-      To verify that SCoTL-Pose does not overfit to a particular dataset, we conduct cross-dataset experiments. 
-      When we <strong>train on H36M and evaluate on MPI-INF-3DHP, the baseline achieves 169.75 P-MPJPE, while SCoTL-Pose obtains 163.04.</strong>
-      Conversely, when we <strong>train on 3DHP and evaluate on H36M, the baseline reaches 187.21 P-MPJPE and SCoTL-Pose improves this to 181.82.</strong> 
-      Although these cross-dataset results are not fully aligned with our initial expectations and the overall performance decreases under the dataset shift, <strong>we regard this degradation as mainly stemming from the backbone pose model and the dataset mismatch</strong>, rather than from our loss-net itself. 
-      Importantly, <strong>in all cross-dataset settings SCoTL-Pose consistently outperforms the baseline,</strong> indicating that our loss-net does not simply overfit to a single domain but provides a robust structural prior. 
-      We believe that explicitly improving cross-dataset generalization is an interesting direction for future work, and we plan to investigate how the learned loss-net can be further exploited to contribute to better handling of distribution shifts.
+      To test whether the loss-net overfits the training data, we run cross-dataset experiments between Human3.6M (H36M) and MPI-INF-3DHP (3DHP), training on one dataset and evaluating on the other. If the loss-net were merely memorizing domain-specific patterns, adding SCoTL-Pose would be expected to worsen cross-dataset performance relative to the baseline, which would provide direct evidence of such overfitting.
+    </p>
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Train → Test</th>
+          <th>Baseline P-MPJPE↓</th>
+          <th>SCoTL-Pose P-MPJPE↓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H36M → 3DHP</td>
+          <td>169.75</td>
+          <td>163.04</td>
+        </tr>
+        <tr>
+          <td>3DHP → H36M</td>
+          <td>187.21</td>
+          <td>181.82</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      These results highlight two key points. First, the cross-dataset experiments indicate that limited domain generalization and sensitivity to input formatting are common issues in current 3D HPE models, rather than a specific flaw of our method. The histogram visualizations further show that both the baseline and SCoTL-Pose suffer from the dataset shift, although the overall trends remain similar.
     </p>
     <div class="media-block">
       <div class="media-row">
@@ -781,32 +804,9 @@
         </div>
       </div>
     </div>
-    
-    <!-- Section 5: Pose-net and Loss-net diagram -->
-    <h2>5. Pose-net and Loss-net diagram</h2>
     <p>
-      The figure below illustrates <strong>the overall architecture of the pose-net and the graph-based loss-net.</strong>
+      Second, regarding the original concern about overfitting of the loss-net, we do not observe any additional degradation beyond the baseline: SCoTL-Pose largely preserves its in-domain gains under cross-dataset evaluation. This suggests that the loss-net does not overfit in a way that harms the pose-net’s cross-dataset performance, while the remaining domain gap remains an interesting direction for future work.
     </p>
-    <p>
-      Given input 2D keypoints, the pose-net lifts them to 3D keypoints. 
-      The resulting 3D keypoints are then concatenated with the original 2D keypoints and a learned joint-type embedding to form joint-level node features. 
-      These node features are fed into a loss-net, for which we experiment with two variants: a simple MLP-based loss-net and a graph-based loss-net.
-    </p>
-    <p>
-      In particular, the graph-based loss-net explicitly reflects the human skeleton: joints are treated as nodes, edges follow the kinematic connectivity, and a CLS token attends to all joints to aggregate global pose information. 
-      The loss-net outputs a single scalar energy for each pose, which serves as a learned structural consistent loss.
-    </p>
-    <p>
-      During training, the pose-net and loss-net are optimized in an alternating way. 
-      <strong>In i) of the diagram, we update only the pose-net, minimizing a combination of the supervised loss and the energy predicted by the loss-net. 
-      In ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones.</strong> 
-      This way, the loss-net provides structural guidance to the pose-net, while the pose-net learns to produce poses with both low supervised error and low structural energy.
-    </p>
-    <div class="media-block">
-      <img class="diagram-image"
-           src="static/images/diagram.png"
-           alt="Pose-net and Loss-net diagram">
-    </div>
 
     <footer>
       Source code for this page is adapted from Keunhong Park’s Nerfies website.
