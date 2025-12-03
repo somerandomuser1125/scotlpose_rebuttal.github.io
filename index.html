@@ -736,7 +736,7 @@
     </p>
     <p>
       During training, the pose-net and loss-net are optimized in an alternating way. 
-      <strong>In i) of the diagram, we update only the pose-net, minimizing a combination of the supervised regression loss and the energy predicted by the loss-net. 
+      <strong>In i) of the diagram, we update only the pose-net, minimizing a combination of the supervised loss and the energy predicted by the loss-net. 
       In ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones.</strong> 
       This way, the loss-net provides structural guidance to the pose-net, while the pose-net learns to produce poses with both low supervised error and low structural energy.
     </p>
