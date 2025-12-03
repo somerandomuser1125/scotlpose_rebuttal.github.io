@@ -266,8 +266,8 @@
     <h2>2. From general baselines to state-of-the-art: consistent improvements</h2>
     <p>
       During the rebuttal process, we have performed substantially more extensive experiments.
-      (i) We conducted a much broader hyperparameter search, which led to additional improvements over the original submission.
-      (ii) In response to the reviewers’ suggestions, we further evaluated SCoTL-Pose on stronger state-of-the-art backbones, including KTPFormer and a diffusion-based model.
+      <strong>(i) We conducted a much broader hyperparameter search, which led to additional improvements over the original submission.
+      (ii) In response to the reviewers’ suggestions, we further evaluated SCoTL-Pose on stronger state-of-the-art backbones, including KTPFormer and a diffusion-based model.</strong>
       Across all these settings, we observe a consistent improvement: SCoTL-Pose improves over the corresponding baselines and achieves state-of-the-art performance on our benchmark datasets.
     </p>
 
@@ -418,7 +418,7 @@
     <p><strong>Analysis on Human3.6M.</strong> Even though the benchmark is already highly saturated, the diffusion-based model benefits from leveraging multiple negative samples and still achieves a noticeable improvement, outperforming KTPFormer by 1.2 points on MPJPE. We also observe that, despite KTPFormer itself being near the performance ceiling, incorporating our method still leads to further gains.</p>
 
     <p><strong>Analysis on MPI-INF-3DHP.</strong> Our approach consistently improves performance across settings as well. Unfortunately, for KTPFormer and MotionAGFormer on 3DHP we could not run experiments, because the official baseline code is not publicly available and reported reproducibility issues in the community remain unresolved in the official repository. Instead, we provide a comprehensive set of 32 experimental results (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-Pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</p>
-
+    <p>Instead, we provide a comprehensive set of 32 experimental results (single-frame models: 3 baselines × 3 datasets × 2 SCoTL-Pose variants; multi-frame models: 4 baselines × 2 variants on H36M and 3 × 2 variants on 3DHP), which consistently corroborate our findings and offer strong evidence for the robustness and generalizability of our approach.</p>
     <!-- Section 3: In-the-wild examples -->
     <h2>3. In-the-wild dataset: Baseline vs SCoTL-Pose</h2>
     <p>
