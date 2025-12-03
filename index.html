@@ -12,17 +12,34 @@
   </script>
 
   <style>
-        /* in-the-wild 3개 영상 가로 배치용 */
-    .itw-video-row video {
+        /* 기본: in-the-wild 3개 나란히 */
+.itw-video-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0 24px 0;
+  justify-content: center;
+}
+
+.itw-video-row .media-item {
+  flex: 0 1 32%;
+}
+
+/* 기본 비디오 크기: 양옆 (Baseline 1, SCoTL-pose) */
+.itw-video-row video {
   width: 100%;
-  /* 세 영상 모두 16:9 비율로 통일 */
-  aspect-ratio: 16 / 9;
   height: auto;
   display: block;
-
-  /* 세로로 긴 영상은 위/아래를 잘라서 맞추기 */
-  object-fit: cover;
 }
+
+/* ✅ 가운데(Baseline 2)만 살짝 zoom-out */
+.itw-video-row .video-zoomout {
+  width: 80%;        /* 70~85% 사이로 취향에 맞게 조절 가능 */
+  height: auto;
+  display: block;
+  margin: 0 auto;    /* 가운데 정렬 */
+}
+
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -412,17 +429,20 @@
       </video>
     </div>
 
-    <div class="media-item">
-      <video
-        src="static/videos/2.mp4"
-        controls
-        autoplay
-        loop
-        muted
-        playsinline
-        poster="static/images/itw_example_thumbnail.png">
-      </video>
-    </div>
+    <div class="media-item media-item-center">
+  <div class="video-label">Baseline 2</div>
+  <video
+    class="video-zoomout"
+    src="static/videos/2.mp4"
+    controls
+    autoplay
+    loop
+    muted
+    playsinline
+    poster="static/images/itw_example_thumbnail.png">
+  </video>
+</div>
+
 
     <div class="media-item">
       <div class="video-label">SCoTL-pose</div>
