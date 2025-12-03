@@ -246,20 +246,21 @@
 
     <!-- Section 1: Conceptual diagram -->
     <h2>1. Conceptual diagram of SCoTL-Pose</h2>
-    <p>
-      The figure below illustrates our overall architecture: a pose-net that lifts 2D keypoints to 3D, and a loss-net that takes joint-level features formed by concatenating the 3D keypoints, the original 2D keypoints, and a joint-type embedding. We consider two loss-net variants: a simple MLP and a graph-based model.
-    </p>
-    <p>
-      The graph-based loss-net explicitly reflects the human skeleton: joints are treated as nodes, edges follow the kinematic connectivity, and a CLS token attends to all joints to aggregate global pose information. The loss-net outputs a single scalar energy for each pose, which serves as a learned structure-consistent loss (we also include an MLP-based loss-net, omitted here for brevity).
-    </p>
-    <p>
-      During training, the pose-net and loss-net are optimized in an alternating way. In (i) of the diagram, we update only the pose-net, minimizing a combination of the supervised loss and the energy predicted by the loss-net. In (ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones. This way, the loss-net provides structural guidance to the pose-net, while the pose-net learns to produce poses with both low supervised error and low structural energy.
-    </p>
     <div class="media-block">
       <img class="diagram-image"
            src="static/images/diagram.png"
            alt="Pose-net and Loss-net diagram">
     </div>
+    <p>
+      The figure illustrates our overall architecture: a pose-net that lifts 2D keypoints to 3D, and a loss-net that takes joint-level features formed by concatenating the 3D keypoints, the original 2D keypoints, and a joint-type embedding. We consider two loss-net variants: a simple MLP and a graph-based model.
+    </p>
+    <p>
+      <strong>The graph-based loss-net</strong> explicitly reflects the human skeleton: joints are treated as nodes, edges follow the kinematic connectivity, and a CLS token attends to all joints to aggregate global pose information. The loss-net outputs a single scalar energy for each pose, which serves as a learned structural consistent loss.(we also include an MLP-based loss-net, omitted here for brevity)
+    </p>
+    <p>
+      During training, the pose-net and loss-net are optimized in an alternating way. <strong>In i) of the diagram, we update only the pose-net, minimizing a combination of the supervised loss and the energy predicted by the loss-net. In ii), we freeze the pose-net and update the loss-net so that it learns to assign lower energy to structurally plausible poses and higher energy to implausible ones</strong>. 
+    </p>
+    
 
     <!-- Section 2: Baselines -> SOTA -->
     <h2>2. From general baselines to state-of-the-art: consistent improvements</h2>
@@ -508,7 +509,7 @@
     </ul>
 
     <p>
-      <strong>To better understand the behavior of SCoTL-Pose, we further examined samples on which SCoTL-Pose performs similarly to, or even worse than, the baseline in terms of P-MPJPE.</strong> Somewhat surprisingly, visualization of these cases revealed that SCoTL-Pose often produces poses that are structurally more plausible. For the same samples, SCoTL-Pose also achieves higher scores under our structural metrics. <strong>This analysis reinforces two key points: (i) the loss-net effectively captures structural signals and guides the pose-net toward more structurally consistent poses, and (ii) P-MPJPE alone is insufficient to assess structural consistency, underscoring the importance of our structural metrics as a complementary evaluation measure.</strong>
+      <strong>To better understand the behavior of SCoTL-Pose, we further examined samples on which SCoTL-Pose performs similarly to, or even worse than, the baseline in terms of P-MPJPE.</strong> Somewhat surprisingly, visualization of these cases revealed that SCoTL-Pose often produces poses that are structurally more plausible. For the same samples, SCoTL-Pose also achieves higher structural consistency. <strong>This analysis reinforces two key points: (i) the loss-net effectively captures structural signals and guides the pose-net toward more structurally consistent poses, and (ii) P-MPJPE alone is insufficient to assess structural consistency, underscoring the importance of our structural metrics as a complementary evaluation measure.</strong>
     </p>
 
     <!-- 3093 sample -->
