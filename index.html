@@ -468,6 +468,39 @@
       Although at first glance the baseline may seem to better capture the flexion of the right knee, <strong>a closer look at the overall view shows that SCoTL-pose is more structurally plausible.</strong>
     </p>
     
+    <!-- ★ 첫 번째: 영상 + 이미지 + 영상 (sota1) -->
+    <div class="media-block">
+      <div class="media-row media-row-three">
+        <div class="media-item">
+          <div class="video-label">Baseline (KTPFormer)</div>
+          <video
+            src="static/videos/sota1_base.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+        <div class="media-item image-item">
+          <img src="static/images/new.png"
+               alt="In-the-wild comparison snapshot 1">
+        </div>
+        <div class="media-item">
+          <div class="video-label">D3DP + SCoTL-pose</div>
+          <video
+            src="static/videos/sota1_scotl.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+      </div>
+    </div>
     <div class="media-block">
       <div class="media-row" style="margin-top: 16px;">
         <div class="media-item full-width-item">
@@ -479,6 +512,40 @@
     <p>
       <strong>This case also shows that,</strong> for the right arm, <strong>SCoTL-pose produces a more plausible pose.</strong>
     </p>
+    <!-- ★ 두 번째: 영상 + 이미지 + 영상 (sota2) -->
+    <div class="media-block">
+      <div class="media-row media-row-three">
+        <div class="media-item">
+          <div class="video-label">Baseline (KTPFormer)</div>
+          <video
+            src="static/videos/sota2_base.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+        <div class="media-item image-item">
+          <img src="static/images/dance.png"
+               alt="In-the-wild comparison snapshot 2">
+        </div>
+        <div class="media-item">
+          <div class="video-label">D3DP + SCoTL-pose</div>
+          <video
+            src="static/videos/sota2_scotl.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            controls
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="static/images/itw_example_thumbnail.png">
+          </video>
+        </div>
+      </div>
+    </div>
+    
       We additionally <strong>visualized results for the PoseFormerV2 baseline and PoseformerV2 +SCoTL-pose (Graph) variant,</strong> and observed the same trend: SCoTL-pose produces more structurally plausible poses.
     </p>
     <div class="media-block">
