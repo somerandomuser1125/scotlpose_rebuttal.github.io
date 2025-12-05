@@ -30,6 +30,12 @@
         flex: 0 1 100%;  /* 모바일에서는 세로로 한 칸씩 */
       }
     }
+    .media-row-three .image-item img {
+  max-width: 60%;   /* 50~80% 사이로 취향대로 조절 */
+  height: auto;
+  display: block;
+  margin: 0 auto;   /* 가운데 정렬 */
+}
 
     .itw-video-row .media-item {
       flex: 0 1 32%;
@@ -484,7 +490,7 @@
         <div class="media-item">
           <div class="video-label">Baseline (KTPFormer)</div>
           <video
-            src="static/videos/sota1_base.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            src="static/videos/sota1_base.mp4" 
             controls
             autoplay
             loop
@@ -500,7 +506,7 @@
         <div class="media-item">
           <div class="video-label">D3DP + SCoTL-pose</div>
           <video
-            src="static/videos/sota1_scotl.mp4"  <!-- TODO: 실제 파일명으로 변경 -->
+            src="static/videos/sota1_scotl.mp4"  
             controls
             autoplay
             loop
