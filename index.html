@@ -258,15 +258,15 @@
     </p>
     <p>Specifically, this rebuttal:</p>
     <ol>
-      <li>summarizes the <strong>overall architecture of SCoTL-pose</strong></li>
+      <li>summarizes the <strong>overall architecture of SEAL-pose</strong></li>
       <li>shows that our method <strong>consistently improves not only general backbones but also strong state-of-the-art models</strong></li>
-      <li><strong>KTPFormer (current SOTA) vs. D3DP +SCoTL-pose (new SOTA)</strong>: provides visualizations on <strong>unseen in-the-wild data</strong>, illustrating that our method produces structurally plausible poses beyond the training distribution</li>
+      <li><strong>KTPFormer (current SOTA) vs. D3DP +SEAL-pose (new SOTA)</strong>: provides visualizations on <strong>unseen in-the-wild data</strong>, illustrating that our method produces structurally plausible poses beyond the training distribution</li>
       <li>demonstrates that <strong>the loss-net provides useful guidance during training</strong> and</li>
       <li>presents <strong>cross-dataset experiments designed to test potential overfitting of the loss-net</strong></li>
     </ol>
 
     <!-- Section 1: Conceptual diagram -->
-    <h2>1. Conceptual diagram of SCoTL-pose</h2>
+    <h2>1. Conceptual diagram of SEAL-pose</h2>
     <div class="media-block">
       <img class="diagram-image"
            src="static/images/diagram.png"
@@ -849,13 +849,13 @@
           <video src="static/videos/21300_gt_base_rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
-        <!-- 3: 이미지 (SCoTL-Pose 측) -->
+        <!-- 3: 이미지 (-Pose 측) -->
         <div class="media-item image-item">
-          <img src="static/images/21300_gt_scotl_view01_az330.png" alt="3DHP Sample 21300 - SCoTL-Pose (view 1)">
+          <img src="static/images/21300_gt__view01_az330.png" alt="3DHP Sample 21300 - -Pose (view 1)">
         </div>
-        <!-- 4: 영상 (SCoTL-Pose) -->
+        <!-- 4: 영상 (-Pose) -->
         <div class="media-item">
-          <video src="static/videos/21300_gt_scotl_rot_z_axis.mp4"
+          <video src="static/videos/21300_gt__rot_z_axis.mp4"
                  controls autoplay loop muted playsinline></video>
         </div>
       </div>
@@ -864,14 +864,14 @@
     <!-- Section 5: Cross-dataset generalization -->
     <h2>5. Is the loss-net overfitting to the training data? (Cross-dataset evaluation)</h2>
     <p>
-      To test whether the loss-net overfits the training data, we run cross-dataset experiments between Human3.6M (H36M) and MPI-INF-3DHP (3DHP), training on one dataset and evaluating on the other. If the loss-net were merely memorizing domain-specific patterns, adding SCoTL-Pose would be expected to worsen cross-dataset performance relative to the baseline, which would provide direct evidence of such overfitting.
+      To test whether the loss-net overfits the training data, we run cross-dataset experiments between Human3.6M (H36M) and MPI-INF-3DHP (3DHP), training on one dataset and evaluating on the other. If the loss-net were merely memorizing domain-specific patterns, adding -Pose would be expected to worsen cross-dataset performance relative to the baseline, which would provide direct evidence of such overfitting.
     </p>
     <table class="metrics-table">
       <thead>
         <tr>
           <th>Train → Test</th>
           <th>Baseline P-MPJPE↓</th>
-          <th>SCoTL-pose P-MPJPE↓</th>
+          <th>-pose P-MPJPE↓</th>
         </tr>
       </thead>
       <tbody>
@@ -888,11 +888,11 @@
       </tbody>
     </table>
     <p>
-      These results highlight two key points. First, the cross-dataset experiments indicate that <strong>limited domain generalization and sensitivity to input formatting are common issues in current 3D HPE models,</strong> rather than a specific flaw of our method. The histogram visualizations further show that both the baseline and SCoTL-pose suffer from the dataset shift, although the overall trends remain similar.
+      These results highlight two key points. First, the cross-dataset experiments indicate that <strong>limited domain generalization and sensitivity to input formatting are common issues in current 3D HPE models,</strong> rather than a specific flaw of our method. The histogram visualizations further show that both the baseline and -pose suffer from the dataset shift, although the overall trends remain similar.
     </p>
     
     <p>
-      Second, regarding the original concern about overfitting of the loss-net, <strong>we do not observe any additional degradation beyond the baseline: SCoTL-pose largely preserves its in-domain gains under cross-dataset evaluation.</strong> This suggests that the loss-net does not overfit in a way that harms the pose-net’s cross-dataset performance, while the remaining domain gap remains an interesting direction for future work.
+      Second, regarding the original concern about overfitting of the loss-net, <strong>we do not observe any additional degradation beyond the baseline: -pose largely preserves its in-domain gains under cross-dataset evaluation.</strong> This suggests that the loss-net does not overfit in a way that harms the pose-net’s cross-dataset performance, while the remaining domain gap remains an interesting direction for future work.
     </p>
     <div class="media-block">
       <div class="media-row">
